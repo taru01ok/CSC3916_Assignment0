@@ -1,0 +1,57 @@
+REQUEST HEADERS:
+================
+
+User-Agent: PostmanRuntime/7.x.x
+Description: Identifies the client application making the HTTP request. In this case, it shows the request is coming from Postman.
+
+Accept: */*
+Description: Indicates what media types the client can process. The wildcard (*/*) means the client accepts any content type.
+
+Accept-Encoding: gzip, deflate, br
+Description: Specifies which compression algorithms the client supports. This allows the server to compress the response to reduce bandwidth.
+
+Connection: keep-alive
+Description: Controls whether the network connection stays open after the current transaction. Keep-alive allows multiple requests over the same connection.
+
+Host: jsonplaceholder.typicode.com
+Description: Specifies the domain name of the server being requested. This is required in HTTP/1.1.
+
+Cache-Control: no-cache
+Description: Directives for caching mechanisms. "no-cache" forces caches to validate with the origin server before using cached content.
+
+
+RESPONSE HEADERS:
+=================
+
+Content-Type: application/json; charset=utf-8
+Description: Indicates the media type of the response body. Here it specifies JSON format with UTF-8 character encoding.
+
+Date: Wed, 04 Feb 2026 [time]
+Description: The date and time at which the message was sent by the server.
+
+Server: cloudflare
+Description: Information about the software used by the origin server. In this case, the request is being handled through Cloudflare's CDN.
+
+Cache-Control: max-age=43200
+Description: Directives for caching. max-age=43200 means the response can be cached for 43200 seconds (12 hours).
+
+Content-Length: [varies by response]
+Description: The size of the response body in bytes (octets).
+
+X-Powered-By: Express
+Description: Indicates the technology/framework powering the server. This API uses Express.js.
+
+Access-Control-Allow-Credentials: true
+Description: CORS header that indicates whether the response can be shared when the request's credentials mode is "include".
+
+ETag: W/"[hash value]"
+Description: A unique identifier for a specific version of the resource. Used for caching and conditional requests.
+
+Via: 1.1 vegur
+Description: Added by proxies to track message forwards and protocol capabilities.
+
+CF-Cache-Status: HIT/MISS/DYNAMIC
+Description: Cloudflare-specific header indicating whether the response was served from cache (HIT), fetched from origin (MISS), or bypassed cache (DYNAMIC).
+
+CF-Ray: [unique identifier]
+Description: Cloudflare's unique identifier for this request, useful for debugging and support.

@@ -1,68 +1,45 @@
-# Assignment Zero
-## Purpose
-The purpose of this assignment is to work with Postman become familiar with HTTP, and REST through the testing framework provided by Postman.  Furthermore, to check in your first node program to github.
+# CSC3916 Assignment 0 - REST API Testing with Postman
 
-You will create a Postman collection and create a REST test within the project. You will need to automate each test and include the required asserts (tests) for each request in the validation.
+## Student: Taruni Sabhavat
 
-## Requirements
-- Sign-up for a free GitHub account: https://github.com/ – Homework assignments will be stored on GitHub
-- Accept GitHub Classroom 
-- Download IDE, you can use WebStorm or VSCode for all assignments
-- Download Desktop version of Postman https://www.postman.com/downloads/
-- Create a REST request to get started
-    - Create an environment variable book_title for the query string for title  
-    - Url: https://www.googleapis.com/books/v1/volumes?q={{book_title}} 
-    - Use this request to get a JSON response of books with the name Turing in the title
-    - Parse the result and store the id in a postman variable 
-    - Asserts (Postman tests) must include:
-        - validating books returned have the title turing (e.g. items[i].title)
-        - Response status code (e.g. 200)
-- Create a Chained request that requests 
-    - Url: https://www.googleapis.com/books/v1/volumes/{{id}} 
-    - Using the id you stored from the first request, make sure the second request uses the ID pulled from the first request 
-    - Create Asserts that:
-        - Validate response contains the ID from the request 
-        - Validate response status code (e.g. 200)
-- Modify /utils/googlebooks.js
-    - Change the method to return an object
-    ```
-        {
-            data: response.data, 
-            status: response.status, 
-            statusText: response.statusText, 
-            headers: response.headers,
-            requestHeader: response.config.headers
-        }
-    ```
-- Review the HTTP Headers in the Request and Response – create text file headers.txt and describe each key value pair in the HTTP header in both request and response and check it in with the project to GitHub (e.g. what is the content-type and what does it mean)
+## Overview
+This assignment demonstrates REST API testing using Postman and the JSONPlaceholder mock API. Due to rate limiting on the Google Books API, this implementation uses JSONPlaceholder as an alternative while demonstrating the same REST API concepts including:
+- GET requests with query parameters
+- Request chaining using environment variables
+- Automated testing with assertions
+- HTTP header analysis
 
-## Submission
-- Create a readme.md at the root of your github repository with the embedded (markdown) 
-    - Within the collection click the (…), share collection -> Run in Postman
-        - Markdown friendly link
-        - Include your environment settings
-        - Copy to clipboard 
-    - Check-in googlebooks command API with your change to google books
-    - Check-in text file headers.txt with header values
+## Postman Collection
 
-## Rubic
-- -10 homework not uploaded
-- -2 missing postman button in readme.md
-- -2 missing check in request 1 for checking title in items
-- -2 missing ID check in request 2
-- -2 missing change in utils/googlebooks.js (adding new object)
-- -2 missing text file with request headers
+[<img src="https://run.pstmn.io/button.svg" alt="Run In Postman" style="width: 128px; height: 32px;">](https://taruni-sabhavat-7457486.postman.co/collection/52086578-6685c11c-b9b8-47a7-a18a-05a0d779e5db?source=rip_markdown&active-environment=52086578-e3bea103-4ba5-4551-bd4f-05da64354cde)
 
-## Resources
-- Postman: https://www.getpostman.com/
-- Blog: http://blog.getpostman.com/2014/01/27/extracting-data-from-responses-and-chaining-requests/
+## API Endpoints Used
+1. **Get Posts**: `https://jsonplaceholder.typicode.com/posts?userId={{user_id}}`
+   - Returns all posts for a given user ID
+   - Saves the first post ID to environment variable for chaining
 
-```
-var issues = JSON.parse(responseBody);  
-var closedState = postman.getEnvironmentVariable("closed_state");  
-var allIssuesAreClosed = issues.every(function(issue) {  
-  return issue.state === closedState;
-});
-tests["All issues are closed"] = allIssuesAreClosed;  
-```
-[<img src="https://run.pstmn.io/button.svg" alt="Run In Postman" style="width: 128px; height: 32px;">](https://app.getpostman.com/run-collection/35315-d80d079c-5158-4969-bf67-90dd80aa1dc4?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D35315-d80d079c-5158-4969-bf67-90dd80aa1dc4%26entityType%3Dcollection%26workspaceId%3D9537543c-3737-4557-a3ce-8c5ed9249378#?env%5Bmccarthy-hw0%5D=W3sia2V5IjoiYm9va19pZCIsInZhbHVlIjoiIiwiZW5hYmxlZCI6dHJ1ZSwidHlwZSI6ImFueSIsInNlc3Npb25WYWx1ZSI6IjRQWjZEQUFBUUJBSiIsImNvbXBsZXRlU2Vzc2lvblZhbHVlIjoiNFBaNkRBQUFRQkFKIiwic2Vzc2lvbkluZGV4IjowfV0=)
+2. **Get Post by ID**: `https://jsonplaceholder.typicode.com/posts/{{post_id}}`
+   - Uses the post_id from the first request
+   - Returns a single post object
+
+## Environment Variables
+- `user_id`: Set to 1 (used in first request)
+- `post_id`: Dynamically set from first request for chaining
+
+## Tests Implemented
+### Request 1: Get Posts
+- Validates status code is 200
+- Checks that posts array is not empty
+- Saves first post ID for request chaining
+
+### Request 2: Get Post by ID
+- Validates status code is 200
+- Verifies response contains the correct post ID
+- Checks that post has title and body fields
+
+## Files Modified/Created
+- `utils/googlebooks.js` - Modified return object to include response metadata (data, status, statusText, headers, requestHeader)
+- `headers.txt` - HTTP header analysis and documentation for request/response headers
+
+## Assignment Notes
+Originally intended to use Google Books API, but due to rate limiting (429 errors), switched to JSONPlaceholder API which demonstrates the same REST API concepts without quota restrictions.
